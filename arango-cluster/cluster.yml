@@ -1,0 +1,28 @@
+apiVersion: "database.arangodb.com/v1alpha"
+kind: "ArangoDeployment"
+metadata:
+  name: "arangodb-cluster"
+  namespace: arango
+  labels:
+    app: arangodb
+spec:
+  mode: Cluster
+  environment: Production
+  image: 
+  agents:
+    count : 3
+    resources:
+      requests:
+        storage: 8Gi
+    storageClassName: default
+  coordinators :
+    count : 5
+  dbservers:
+    resources:
+      requests:
+        storage: 200Gi
+    storageClassName: managed-premium
+    args:
+    - "--server.statistics=false"
+  externalAccess:
+    type: None
